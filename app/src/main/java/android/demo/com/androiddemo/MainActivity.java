@@ -11,6 +11,7 @@ import android.widget.Button;
 
 public class MainActivity extends ActionBarActivity {
 
+    private Intent mCircleIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +26,15 @@ public class MainActivity extends ActionBarActivity {
         //Obtain the button instance from the view
         Button btnStart = (Button)findViewById(R.id.start);
 
+        mCircleIntent = new Intent(this, CircleActivity.class);
+        mCircleIntent.putExtra("imagePath", "http://www.bikesarena.com/wp-content/uploads/2013/11/Funny-Laughing-Meme-3-231x300.png");
+
         //Add an event listener to the button
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Raise an Intent to the android system to move us to the next activity
-                Intent intent = new Intent(MainActivity.this, CircleActivity.class);
-                startActivity(intent);
+                startActivity(mCircleIntent);
             }
         });
         //*********************************************************

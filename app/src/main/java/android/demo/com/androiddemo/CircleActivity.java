@@ -4,6 +4,7 @@ import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
+import android.widget.Toast;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -23,6 +25,7 @@ import java.net.URL;
 public class CircleActivity extends Activity {
 
     View mRedCircle;
+    String mImagePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +37,16 @@ public class CircleActivity extends Activity {
         //Obtain the instance of the red circle View
         mRedCircle = findViewById(R.id.red_circle);
 
+        Intent intent = getIntent();
+        mImagePath = intent.getStringExtra("imagePath");
+
+        Toast.makeText(this, mImagePath, Toast.LENGTH_LONG).show();
+
         //add an event listener to the download button
         findViewById(R.id.download).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadImage();
+                loadImage(mImagePath);
             }
         });
 
@@ -104,6 +112,12 @@ public class CircleActivity extends Activity {
     void loadImage(){
         ImageDownloadTask imageDownloadTask = new ImageDownloadTask();
         imageDownloadTask.execute("http://www.bikesarena.com/wp-content/uploads/2013/11/Funny-Laughing-Meme-3-231x300.png");
+    }
+
+    //Download a new image from the internet
+    void loadImage(String imagePath){
+        ImageDownloadTask imageDownloadTask = new ImageDownloadTask();
+        imageDownloadTask.execute(imagePath);
     }
 
     //Async task is used to run some code in a new thread
