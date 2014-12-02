@@ -7,11 +7,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 
 public class MainActivity extends ActionBarActivity {
 
     private Intent mCircleIntent;
+    EditText mImagePathEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,15 +27,16 @@ public class MainActivity extends ActionBarActivity {
         //2. *****************************************************
         //Obtain the button instance from the view
         Button btnStart = (Button)findViewById(R.id.start);
+        mImagePathEditText = (EditText)findViewById(R.id.imagePathEditText);
 
         mCircleIntent = new Intent(this, CircleActivity.class);
-        mCircleIntent.putExtra("imagePath", "http://www.bikesarena.com/wp-content/uploads/2013/11/Funny-Laughing-Meme-3-231x300.png");
 
         //Add an event listener to the button
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Raise an Intent to the android system to move us to the next activity
+                mCircleIntent.putExtra("imagePath", mImagePathEditText.getText().toString());
                 startActivity(mCircleIntent);
             }
         });
