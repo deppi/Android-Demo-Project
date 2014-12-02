@@ -40,8 +40,6 @@ public class CircleActivity extends Activity {
         Intent intent = getIntent();
         mImagePath = intent.getStringExtra("imagePath");
 
-        Toast.makeText(this, mImagePath, Toast.LENGTH_LONG).show();
-
         //add an event listener to the download button
         findViewById(R.id.download).setOnClickListener(new View.OnClickListener() {
             @Override

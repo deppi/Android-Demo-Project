@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -27,7 +28,16 @@ public class MainActivity extends ActionBarActivity {
         //2. *****************************************************
         //Obtain the button instance from the view
         Button btnStart = (Button)findViewById(R.id.start);
+
+        final Toast EditTextToast = Toast.makeText(this, "Type the url of an image", Toast.LENGTH_SHORT);
         mImagePathEditText = (EditText)findViewById(R.id.imagePathEditText);
+        mImagePathEditText.setOnLongClickListener(new View.OnLongClickListener() { // tooltip implementation
+            @Override
+            public boolean onLongClick(View v) {
+                EditTextToast.show();
+                return false;
+            }
+        });
 
         mCircleIntent = new Intent(this, CircleActivity.class);
 

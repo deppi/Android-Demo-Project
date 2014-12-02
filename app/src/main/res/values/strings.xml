@@ -2,7 +2,9 @@
 <resources>
 
     <string name="app_name">AndroidDemo</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world">Enter the URL of a string you would like to load!</string>
     <string name="action_settings">Settings</string>
+    <string name="image_url_default">http://www.bikesarena.com/wp-content/uploads/2013/11/Funny-Laughing-Meme-3-231x300.png</string>
+    <string name="circle_activity_button_text">Begin!</string>
 
 </resources>
