@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
+import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.Toast;
@@ -19,13 +21,17 @@ import android.widget.Toast;
 import java.io.InputStream;
 import java.net.URL;
 
+import javax.xml.datatype.Duration;
+
 /**
  * Created by jkelly on 11/29/2014.
+ * Continued practice by gbremner
  */
 public class CircleActivity extends Activity {
 
     View mRedCircle;
     String mImagePath;
+    int mStatusBarHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,27 +60,36 @@ public class CircleActivity extends Activity {
                 playAnimation();
             }
         });
+
+        mStatusBarHeight = getStatusBarHeight();
     }
 
+    public int getStatusBarHeight() { // used to offset the circle y co-ordinate
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
 
-
-    //@Override
+    @Override
     //3.*******************************************************************************
     //This event is raised by the android system when a touch on the screen happens.
     //event.getAction has an UP and DOWN
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            //obtain the coordinated of the touch
+            //obtain the coordinates of the touch
             int x = (int) event.getX();
-            int y = (int) event.getY();
+            int y = (int) event.getY() - mStatusBarHeight; // offset the size of the status bar
 
-            //ViewPropertAnimator can be used to animate any property on the control
+            //ViewPropertyAnimator can be used to animate any property on the control
             ViewPropertyAnimator animator = mRedCircle.animate();
 
             //animate the x coord
             animator.x(x - (mRedCircle.getWidth() / 2))
                     //animate the y coord
-                    .y(y - mRedCircle.getHeight() / 2)
+                    .y(y - (mRedCircle.getHeight() / 2))
                     //apply and easing function
                     .setInterpolator(new AccelerateInterpolator(2f));
 
